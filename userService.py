@@ -62,6 +62,9 @@ class UserService:
 
     def update_user(self):
         username = input("Enter username to update: ").strip()
+        if username == "/cancel":
+            print("Operation cancelled.")
+            return
 
         if username not in self.users:
             print(f"User '{username}' not found.")
@@ -69,6 +72,22 @@ class UserService:
 
         user = self.users[username]
         print(f"\nUpdating user '{username}'. Leave field blank to keep current value.\n")
+
+
+        new_username = input(f"Enter new username [{user.username}]: ").strip()
+        if new_username and new_username != username:
+            if new_username in self.users:
+                print(f"Username '{new_username}' already exists.")
+                return
+            if not new_username.strip():
+                print("Username cannot be empty.")
+                return
+            # Perform the key update
+            self.users[new_username] = user
+            del self.users[username]
+            user.username = new_username
+            username = new_username
+
 
         # Prompt each field, allowing skipping with Enter
         new_name = input(f"Enter new name [{user.name}]: ").strip()
@@ -122,7 +141,7 @@ class UserService:
         return re.match(email_regex, email) is not None
 
     def is_valid_phone(self, phone):
-        phone_regex = r'^\+?[0-9\s-]+$'
+        phone_regex = r'^\+\d{7,15}$'
         return re.match(phone_regex, phone) is not None
 
     def is_valid_name(self, name):
