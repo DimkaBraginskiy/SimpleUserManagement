@@ -1,0 +1,16 @@
+[
+    {
+        "username": "somecurb",
+        "name": "Dimka",
+        "email": "ok@gmail.com",
+        "phone": "+123456789",
+        "age": "19"
+    },
+    {
+        "username": "Dimka",
+        "name": "Dimka",
+        "email": "ok@gmail.com",
+        "phone": "123456789",
+        "age": "1"
+    }
+]
